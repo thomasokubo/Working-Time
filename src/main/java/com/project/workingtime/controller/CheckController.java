@@ -1,4 +1,4 @@
-package com.project.workingtime;
+package com.project.workingtime.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 @RestController
 public class CheckController {
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyy HH:mm:ss");
     LocalDateTime now = LocalDateTime.now();
 
     @RequestMapping("/check-in")
