@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -15,7 +16,7 @@ public class CheckerController {
     @Autowired
     private CheckerRepository repository;
 
-    @RequestMapping(value="check-in", method= RequestMethod.POST)
+    @RequestMapping(value="/check-in", method= RequestMethod.POST)
     public String checkIn() {
 
         try {
@@ -44,6 +45,11 @@ public class CheckerController {
         } else {
             return "Status: 404";
         }
+    }
+
+    @RequestMapping(value="/report", method =  RequestMethod.GET)
+    public List<Checker> getAllCheckers() {
+        return repository.findAll();
     }
 
 }
