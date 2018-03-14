@@ -1,10 +1,13 @@
 package com.project.workingtime.repository;
 
+import com.project.workingtime.service.CheckerService;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Checker {
@@ -17,17 +20,20 @@ public class Checker {
 
     private String checkout;
 
+
     public Checker() {
-        checkin = LocalDateTime.now().toString();
+        checkin = CheckerService.localDateTimeToString(LocalDateTime.now());
         checkout = "";
+
     }
+
 
     public String getCheckin() {
         return checkin;
     }
 
     public void setCheckin() {
-        this.checkin = LocalDateTime.now().toString();
+        this.checkin = CheckerService.localDateTimeToString(LocalDateTime.now());
     }
 
     public String getCheckout() {
@@ -35,7 +41,7 @@ public class Checker {
     }
 
     public void setCheckout() {
-        this.checkout = LocalDateTime.now().toString();
+        this.checkout = CheckerService.localDateTimeToString(LocalDateTime.now());
     }
 
     @Override
