@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-import static com.project.workingtime.utils.DateTimeConverter.localDateTimeToString;
+import static com.project.workingtime.utils.DateTimeUtils.localDateTimeToString;
 
 @Entity
 public class Checker {

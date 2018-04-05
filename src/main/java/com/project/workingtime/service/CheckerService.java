@@ -5,14 +5,11 @@ import com.project.workingtime.repository.CheckerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.project.workingtime.utils.DateTimeConverter.isTodaysChecker;
-import static com.project.workingtime.utils.DateTimeConverter.stringToLocalDateTime;
+import static com.project.workingtime.utils.DateTimeUtils.isTodaysChecker;
 
 @Service
 public class CheckerService {
