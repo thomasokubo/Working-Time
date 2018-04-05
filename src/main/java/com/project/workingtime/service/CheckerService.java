@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.project.workingtime.utils.DateTimeConverter.isTodaysChecker;
 import static com.project.workingtime.utils.DateTimeConverter.stringToLocalDateTime;
 
 @Service
@@ -23,34 +24,22 @@ public class CheckerService {
         this.repository = checkerRepository;
     }
 
-    public String saveCheckIn() {
-        // Take the last checker
+    public void saveCheckIn() {
+
         Long id = repository.count();
         Optional<Checker> checker = repository.findById(id);
+        Checker checkerToSave = new Checker();
 
         if(checker.isPresent()) {
-
             Checker lastChecker = checker.get();
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            LocalDateTime lastCheckerDateTime = stringToLocalDateTime(lastChecker.getCheckin());
-
-            // If the user didn't checkin at the current day, it'll create a new checker
-            if(currentDateTime.getDayOfYear() != lastCheckerDateTime.getDayOfYear()) {
-                repository.save(new Checker());
-                return "Status: 201";
-            // If the user already did a checkin at the current day, it's value will be updated
-            } else {
+            if(isTodaysChecker(lastChecker)) {
                 lastChecker.setCheckin();
-                repository.save(lastChecker);
-                return "Status: 201";
-
+                checkerToSave = lastChecker;
             }
-
-        // If there is no checker, create a new one
-        } else {
-            repository.save(new Checker());
-            return "Status: 201";
         }
+
+        repository.save(checkerToSave);
+
     }
 
 
