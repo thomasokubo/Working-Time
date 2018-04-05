@@ -1,13 +1,11 @@
 package com.project.workingtime.repository;
 
-import com.project.workingtime.service.CheckerService;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static com.project.workingtime.utils.DateTimeConverter.localDateTimeToString;
 
