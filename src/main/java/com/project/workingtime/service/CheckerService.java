@@ -36,32 +36,20 @@ public class CheckerService {
 
             // If the user didn't checkin at the current day, it'll create a new checker
             if(currentDateTime.getDayOfYear() != lastCheckerDateTime.getDayOfYear()) {
-                try {
-                    repository.save(new Checker());
-                    return "Status: 201";
-                } catch(Exception e) {
-                    return "Status: 403";
-                }
-                // If the user already did a checkin at the current day, it's value will be updated
-            } else {
-                try{
-                    lastChecker.setCheckin();
-                    repository.save(lastChecker);
-                    return "Status: 201";
-                } catch(Exception e) {
-                    return "Status: 403";
-                }
-
-            }
-
-            // If there is no checker, create a new one
-        } else {
-            try {
                 repository.save(new Checker());
                 return "Status: 201";
-            } catch(Exception e) {
-                return "Status: 403";
+            // If the user already did a checkin at the current day, it's value will be updated
+            } else {
+                lastChecker.setCheckin();
+                repository.save(lastChecker);
+                return "Status: 201";
+
             }
+
+        // If there is no checker, create a new one
+        } else {
+            repository.save(new Checker());
+            return "Status: 201";
         }
     }
 
@@ -70,13 +58,11 @@ public class CheckerService {
         Long id = repository.count();
         Optional<Checker> checker = repository.findById(id);
         if(checker.isPresent()) {
-            try {
-                checker.get().setCheckout();
-                repository.save(checker.get());
-                return "Status: 201";
-            } catch(Exception e) {
-                return "Status: 403";
-            }
+
+            checker.get().setCheckout();
+            repository.save(checker.get());
+            return "Status: 201";
+
         } else {
             return "Status: 404";
         }
