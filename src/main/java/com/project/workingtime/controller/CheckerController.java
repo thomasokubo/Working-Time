@@ -2,7 +2,6 @@ package com.project.workingtime.controller;
 
 import com.project.workingtime.repository.Checker;
 import com.project.workingtime.repository.CheckerRepository;
-import com.project.workingtime.service.CheckerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,13 +11,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static com.project.workingtime.utils.DateTimeConverter.stringToLocalDateTime;
+
 @RestController
 public class CheckerController {
 
     @Autowired
     private CheckerRepository repository;
 
-    @RequestMapping(value="/check-in", method= RequestMethod.POST)
+    @RequestMapping(value="/check-in", method= RequestMethod.GET)
     public String checkIn() {
 
         // Take the last checker
@@ -29,7 +30,7 @@ public class CheckerController {
 
             Checker lastChecker = checker.get();
             LocalDateTime currentDateTime = LocalDateTime.now();
-            LocalDateTime lastCheckerDateTime = CheckerService.stringToLocalDateTime(lastChecker.getCheckin());
+            LocalDateTime lastCheckerDateTime = stringToLocalDateTime(lastChecker.getCheckin());
 
             // If the user didn't checkin at the current day, it'll create a new checker
             if(currentDateTime.getDayOfYear() != lastCheckerDateTime.getDayOfYear()) {
@@ -63,7 +64,7 @@ public class CheckerController {
     }
 
 
-    @RequestMapping(value="check-out", method= RequestMethod.POST)
+    @RequestMapping(value="check-out", method= RequestMethod.GET)
     public String checkOut() {
 
         Long id = repository.count();

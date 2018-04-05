@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static com.project.workingtime.utils.DateTimeConverter.localDateTimeToString;
+
 @Entity
 public class Checker {
 
@@ -22,7 +24,7 @@ public class Checker {
 
 
     public Checker() {
-        checkin = CheckerService.localDateTimeToString(LocalDateTime.now());
+        checkin = localDateTimeToString(LocalDateTime.now());
         checkout = "";
 
     }
@@ -33,7 +35,7 @@ public class Checker {
     }
 
     public void setCheckin() {
-        this.checkin = CheckerService.localDateTimeToString(LocalDateTime.now());
+        this.checkin = localDateTimeToString(LocalDateTime.now());
     }
 
     public String getCheckout() {
@@ -41,7 +43,7 @@ public class Checker {
     }
 
     public void setCheckout() {
-        this.checkout = CheckerService.localDateTimeToString(LocalDateTime.now());
+        this.checkout = localDateTimeToString(LocalDateTime.now());
     }
 
     @Override
