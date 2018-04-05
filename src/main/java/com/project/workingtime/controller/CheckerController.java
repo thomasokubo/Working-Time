@@ -3,6 +3,8 @@ package com.project.workingtime.controller;
 import com.project.workingtime.repository.Checker;
 import com.project.workingtime.service.CheckerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,22 +22,20 @@ public class CheckerController {
         this.service = service;
     }
 
-    @RequestMapping(value="/check-in", method= RequestMethod.GET)
-    public String checkIn() {
+    @RequestMapping(value = "/check-in", method = RequestMethod.POST)
+    public ResponseEntity postCheckIn() {
         service.saveCheckIn();
-        return "200";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
-
-    @RequestMapping(value="check-out", method= RequestMethod.GET)
-    public String checkOut() {
+    @RequestMapping(value = "check-out", method = RequestMethod.POST)
+    public ResponseEntity postCheckOut() {
         service.saveCheckOut();
-        return "200";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @RequestMapping(value="/report", method =  RequestMethod.GET)
-    public List<Checker> getAllCheckers() {
+    @RequestMapping(value = "/report", method =  RequestMethod.GET)
+    public List<Checker> getCheckers() {
         return service.getCheckers();
     }
-
 }
