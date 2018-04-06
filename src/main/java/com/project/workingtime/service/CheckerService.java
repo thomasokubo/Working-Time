@@ -21,7 +21,7 @@ public class CheckerService {
         this.repository = checkerRepository;
     }
 
-    public void saveCheckIn() {
+    public Checker saveCheckIn() {
 
         Long id = repository.count();
         Optional<Checker> checker = repository.findById(id);
@@ -36,10 +36,11 @@ public class CheckerService {
         }
 
         repository.save(checkerToSave);
+        return checkerToSave;
 
     }
 
-    public void saveCheckOut(){
+    public Optional<Checker> saveCheckOut(){
 
         Long id = repository.count();
         Optional<Checker> checker = repository.findById(id);
@@ -49,6 +50,8 @@ public class CheckerService {
             lastChecker.setCheckout();
             repository.save(lastChecker);
         }
+
+        return checker;
     }
 
     public List<Checker> getCheckers() {
