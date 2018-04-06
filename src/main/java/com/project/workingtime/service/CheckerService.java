@@ -39,18 +39,15 @@ public class CheckerService {
 
     }
 
+    public void saveCheckOut(){
 
-    public String saveCheckOut(){
         Long id = repository.count();
         Optional<Checker> checker = repository.findById(id);
+
         if(checker.isPresent()) {
-
-            checker.get().setCheckout();
-            repository.save(checker.get());
-            return "Status: 201";
-
-        } else {
-            return "Status: 404";
+            Checker lastChecker = checker.get();
+            lastChecker.setCheckout();
+            repository.save(lastChecker);
         }
     }
 
