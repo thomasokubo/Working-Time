@@ -23,14 +23,13 @@ public class CheckerService {
 
     public Checker saveCheckIn() {
 
-        Long id = repository.count();
-        Optional<Checker> checker = repository.findById(id);
+        Optional<Checker> checker = repository.findTopByOrderByCreatedTimeDesc();
         Checker checkerToSave = new Checker();
 
         if(checker.isPresent()) {
             Checker lastChecker = checker.get();
-            if(isTodaysChecker(lastChecker)) {
-                lastChecker.setCheckin();
+            if(lastChecker.getCheckout().isEmpty()) {
+                lastChecker.setCheckout();
                 checkerToSave = lastChecker;
             }
         }
@@ -42,8 +41,7 @@ public class CheckerService {
 
     public Optional<Checker> saveCheckOut(){
 
-        Long id = repository.count();
-        Optional<Checker> checker = repository.findById(id);
+        Optional<Checker> checker = repository.findTopByOrderByCreatedTimeDesc();
 
         if(checker.isPresent()) {
             Checker lastChecker = checker.get();
