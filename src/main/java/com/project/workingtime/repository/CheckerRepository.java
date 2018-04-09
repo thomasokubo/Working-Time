@@ -12,5 +12,5 @@ public interface CheckerRepository extends CrudRepository<Checker, Long>{
 
     Optional<Checker> findById(Long id);
 
-    Optional<Checker> findTopByOrderByCreatedTimeDesc();
+    Optional<Checker> findTopByOrderByCheckinDesc();
 }

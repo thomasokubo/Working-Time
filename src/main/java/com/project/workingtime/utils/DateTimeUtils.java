@@ -19,7 +19,7 @@ public class DateTimeUtils {
 
     public static boolean isTodaysChecker(Checker checker) {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDateTime lastCheckerDateTime = stringToLocalDateTime(checker.getCheckin());
+        LocalDateTime lastCheckerDateTime = checker.getCheckin();
         return currentDateTime.getDayOfYear() == lastCheckerDateTime.getDayOfYear();
     }
 }
