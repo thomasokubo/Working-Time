@@ -5,11 +5,11 @@ import com.project.workingtime.repository.CheckerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.project.workingtime.utils.DateTimeUtils.isTodaysChecker;
 
 @Service
 public class CheckerService {
@@ -21,15 +21,15 @@ public class CheckerService {
         this.repository = checkerRepository;
     }
 
-    public Checker saveCheckIn() {
+    public Checker saveCheck() {
 
-        Optional<Checker> checker = repository.findTopByOrderByCreatedTimeDesc();
+        Optional<Checker> checker = repository.findTopByOrderByCheckinDesc();
         Checker checkerToSave = new Checker();
 
         if(checker.isPresent()) {
             Checker lastChecker = checker.get();
-            if(lastChecker.getCheckout().isEmpty()) {
-                lastChecker.setCheckout();
+            if(lastChecker.getCheckout() == null) {
+                lastChecker.setCheckout(LocalDateTime.now());
                 checkerToSave = lastChecker;
             }
         }
@@ -37,19 +37,6 @@ public class CheckerService {
         repository.save(checkerToSave);
         return checkerToSave;
 
-    }
-
-    public Optional<Checker> saveCheckOut(){
-
-        Optional<Checker> checker = repository.findTopByOrderByCreatedTimeDesc();
-
-        if(checker.isPresent()) {
-            Checker lastChecker = checker.get();
-            lastChecker.setCheckout();
-            repository.save(lastChecker);
-        }
-
-        return checker;
     }
 
     public List<Checker> getCheckers() {

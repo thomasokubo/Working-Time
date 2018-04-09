@@ -23,16 +23,10 @@ public class CheckerController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/check-in", method = RequestMethod.POST)
+    @RequestMapping(value = "/check", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Checker postCheckIn() {
-        return service.saveCheckIn();
-    }
-
-    @RequestMapping(value = "check-out", method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public Optional<Checker> postCheckOut() {
-        return service.saveCheckOut();
+    public Checker postCheck() {
+        return service.saveCheck();
     }
 
     @RequestMapping(value = "/report", method =  RequestMethod.GET)
